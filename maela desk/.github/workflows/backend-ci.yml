@@ -1,0 +1,59 @@
+name: backend-ci
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "prisma/**"
+      - ".github/workflows/backend-ci.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "prisma/**"
+      - ".github/workflows/backend-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ci-root-password
+          MYSQL_DATABASE: meladesk_test
+          MYSQL_USER: meladesk
+          MYSQL_PASSWORD: ci-app-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pci-root-password --silent"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      DATABASE_URL: mysql://meladesk:ci-app-password@127.0.0.1:3306/meladesk_test
+      NODE_ENV: test
+      PORT: 4000
+      FRONTEND_ORIGINS: http://localhost:3000
+      SESSION_SECRET: ci-only-session-secret-replace-for-each-run
+      COOKIE_SECURE: "false"
+      DEV_SEED_PASSWORD: ci-only-development-password
+      UPLOAD_DIR: ./var/test-uploads
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - run: npm run prisma:generate
+      - run: npm run prisma:validate
+      - run: npm run prisma:migrate:deploy
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm audit --omit=dev

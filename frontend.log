@@ -1,0 +1,587 @@
+
+> maela-desk@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.235.50.241:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 6.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 10.4s (678 modules)
+ GET / 200 in 11880ms
+ ✓ Compiled in 745ms (264 modules)
+ GET / 200 in 213ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 1842ms (699 modules)
+ GET /login 200 in 2644ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1689ms (778 modules)
+ GET /dashboard 200 in 2626ms
+ GET /login 200 in 428ms
+ ✓ Compiled in 938ms (317 modules)
+ ✓ Compiled in 589ms (317 modules)
+ ✓ Compiled in 722ms (317 modules)
+ ✓ Compiled in 675ms (317 modules)
+ ✓ Compiled in 848ms (317 modules)
+ ✓ Compiled in 463ms (318 modules)
+ ✓ Compiled in 411ms (318 modules)
+ ✓ Compiled in 483ms (318 modules)
+ ✓ Compiled in 559ms (318 modules)
+ ✓ Compiled in 555ms (318 modules)
+ ✓ Compiled in 428ms (318 modules)
+ ✓ Compiled in 312ms (318 modules)
+ ✓ Compiled in 334ms (318 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1000ms (414 modules)
+ GET / 200 in 3048ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 2.9s (753 modules)
+ GET /register 200 in 4054ms
+ GET /register 200 in 171ms
+ GET /register 200 in 172ms
+ GET /register 200 in 217ms
+ ✓ Compiled /login in 400ms (438 modules)
+ GET /login 200 in 799ms
+ GET /login 200 in 95ms
+ GET /register 200 in 193ms
+ GET /?utm_source=chatgpt.com 200 in 698ms
+ GET /login 200 in 53ms
+ GET /register 200 in 52ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 962ms (481 modules)
+ GET /dashboard 200 in 1249ms
+ ○ Compiling /tickets/new ...
+ ✓ Compiled /tickets/new in 1411ms (824 modules)
+ GET /tickets/new 200 in 1877ms
+ GET /register 200 in 552ms
+ GET /tickets/new 200 in 222ms
+ GET /tickets/new 200 in 48ms
+ ○ Compiling /notifications ...
+ ✓ Compiled /notifications in 509ms (821 modules)
+ GET /notifications 200 in 658ms
+ GET /dashboard 200 in 49ms
+ GET /tickets/new 200 in 57ms
+ GET /notifications 200 in 51ms
+ GET /login 200 in 83ms
+ GET /login?redirect=%2Fnotifications 200 in 82ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 92ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 53ms
+ GET /login?redirect=%2Fdashboard 200 in 77ms
+ GET /login?redirect=%2Fdashboard 200 in 60ms
+ GET /login?redirect=%2Fnotifications 200 in 77ms
+ GET /login?redirect=%2Fnotifications 200 in 57ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 53ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 45ms
+ GET /tickets/new 200 in 41ms
+ ✓ Compiled in 710ms (334 modules)
+ GET /register 200 in 197ms
+ GET /tickets/new 200 in 207ms
+ GET /dashboard 200 in 45ms
+ GET /tickets/new 200 in 42ms
+ GET /dashboard 200 in 38ms
+ ○ Compiling /tickets ...
+ ✓ Compiled /tickets in 1828ms (831 modules)
+ GET /tickets 200 in 2237ms
+ GET /register 200 in 422ms
+ GET /tickets 200 in 147ms
+ GET /tickets/new 200 in 52ms
+ GET /notifications 200 in 51ms
+ GET /tickets/new 200 in 39ms
+ GET /tickets 200 in 51ms
+ GET /dashboard 200 in 61ms
+ GET /dashboard 200 in 50ms
+ GET /tickets/new 200 in 53ms
+ ○ Compiling / ...
+ ✓ Compiled / in 788ms (504 modules)
+ GET / 200 in 1869ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 597ms (509 modules)
+ GET /login 200 in 835ms
+ GET /dashboard 200 in 49ms
+ GET /dashboard 200 in 55ms
+ GET /tickets 200 in 47ms
+ GET /tickets/new 200 in 61ms
+ GET /dashboard 200 in 33ms
+ GET /tickets 200 in 44ms
+ GET /notifications 200 in 47ms
+ GET /tickets/new 200 in 34ms
+ GET /tickets 200 in 40ms
+ GET / 200 in 51ms
+ GET /login 200 in 37ms
+ GET /register 200 in 54ms
+ GET /dashboard 200 in 57ms
+ GET /tickets/new 200 in 44ms
+ GET /notifications 200 in 36ms
+ GET /dashboard 200 in 39ms
+ GET /tickets/new 200 in 44ms
+ GET /tickets 200 in 31ms
+ GET /dashboard 200 in 80ms
+ GET /tickets/new 200 in 43ms
+ ✓ Compiled in 704ms (339 modules)
+ GET /register 200 in 291ms
+ GET /login 200 in 295ms
+ GET /tickets/new 200 in 310ms
+ GET /login 200 in 66ms
+ GET /tickets/new 200 in 15768ms
+ GET /tickets/new 200 in 1263ms
+ GET /tickets 200 in 1310ms
+ GET /tickets 200 in 1985ms
+ GET /tickets 200 in 354ms
+ GET /tickets 200 in 1952ms
+ GET /tickets 200 in 2027ms
+ GET /tickets 200 in 1245ms
+ GET /tickets 200 in 2088ms
+ GET /tickets 200 in 2525ms
+ GET /tickets 200 in 1452ms
+ GET /tickets 200 in 2613ms
+ GET /tickets 200 in 5292ms
+ GET /tickets 200 in 2617ms
+ GET /notifications 200 in 1233ms
+ GET /tickets 200 in 1242ms
+ GET /notifications 200 in 369ms
+ GET /tickets 200 in 2537ms
+ GET /notifications 200 in 2731ms
+ GET /tickets 200 in 1668ms
+ GET /notifications 200 in 1536ms
+ GET /tickets 200 in 1224ms
+ GET /tickets 200 in 960ms
+ GET /tickets 200 in 1138ms
+ GET /tickets 200 in 407ms
+ GET /tickets 200 in 737ms
+ GET /tickets 200 in 785ms
+ GET /tickets 200 in 1718ms
+ GET /tickets 200 in 567ms
+ GET /tickets 200 in 859ms
+ GET /tickets 200 in 616ms
+ ○ Compiling /forgot-password ...
+ ✓ Compiled /register in 68.6s (838 modules)
+ GET /forgot-password 200 in 57867ms
+ GET /forgot-password 200 in 57608ms
+ GET /forgot-password 200 in 54295ms
+ GET /forgot-password 200 in 53351ms
+ GET /register 200 in 60948ms
+ GET /forgot-password 200 in 80096ms
+ GET /forgot-password 200 in 1321ms
+ GET /forgot-password 200 in 1591ms
+ GET /forgot-password 200 in 1632ms
+ GET /forgot-password 200 in 1633ms
+ GET /register 200 in 2108ms
+ GET /notifications 200 in 2617ms
+ GET /forgot-password 200 in 2098ms
+ GET /login 200 in 3137ms
+ GET /register 200 in 2350ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1554ms (504 modules)
+ HEAD / 200 in 2790ms
+ GET / 200 in 104ms
+ GET /login 200 in 205ms
+ ✓ Compiled /register in 276ms (509 modules)
+ GET /register 200 in 760ms
+ GET / 200 in 177ms
+ GET / 200 in 128ms
+ GET /login 200 in 57ms
+ GET /register 200 in 39ms
+ GET /login 200 in 42ms
+ GET /register 200 in 149ms
+ GET /?utm_source=chatgpt.com 200 in 95ms
+ GET /login 200 in 37ms
+ GET /dashboard 200 in 79ms
+ GET /tickets/new 200 in 86ms
+ GET /tickets 200 in 57ms
+ GET /tickets?status=OPEN 200 in 53ms
+ GET /tickets?status=OPEN&priority=LOW 200 in 52ms
+ GET /tickets 200 in 35ms
+ GET /tickets/new 200 in 39ms
+ GET /?utm_source=chatgpt.com 200 in 133ms
+ GET /register 200 in 36ms
+ ✓ Compiled /forgot-password in 311ms (496 modules)
+ GET /forgot-password 200 in 484ms
+ GET /login 200 in 43ms
+ ✓ Compiled /dashboard in 204ms (499 modules)
+ GET /dashboard 200 in 316ms
+ GET /tickets/new 200 in 59ms
+ GET /tickets/new 200 in 337ms
+ ✓ Compiled /notifications in 431ms (489 modules)
+ GET /notifications 200 in 847ms
+ ✓ Compiled /tickets in 249ms (492 modules)
+ GET /tickets 200 in 474ms
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.235.50.241:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+ ○ Compiling /tickets ...
+ ✓ Compiled /tickets in 2.6s (723 modules)
+ GET /tickets 200 in 3655ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 838ms (742 modules)
+ GET /dashboard 200 in 1259ms
+ ○ Compiling /tickets/new ...
+ ✓ Compiled /tickets/new in 4s (794 modules)
+ GET /tickets/new 200 in 4664ms
+ ✓ Compiled in 701ms (330 modules)
+ GET /tickets/new 200 in 151ms
+ GET /tickets/new 200 in 87ms
+ GET /tickets/new 200 in 69ms
+ GET /tickets/new 200 in 60ms
+ GET /tickets/new 200 in 53ms
+ GET /tickets/new 200 in 48ms
+ GET /tickets/new 200 in 46ms
+ GET /tickets 200 in 61ms
+ GET /tickets?status=OPEN 200 in 40ms
+ GET /tickets/new 200 in 50ms
+ ✓ Compiled in 580ms (330 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1267ms (812 modules)
+ GET / 200 in 2011ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 780ms (792 modules)
+ GET /login 200 in 1008ms
+ ✓ Compiled /dashboard in 200ms (484 modules)
+ GET /dashboard 200 in 373ms
+ GET /tickets 200 in 48ms
+ ✓ Compiled in 518ms (333 modules)
+ GET /dashboard 200 in 126ms
+ ✓ Compiled in 345ms (333 modules)
+ GET /dashboard 200 in 92ms
+ ✓ Compiled /tickets/new in 309ms (497 modules)
+ GET /tickets/new 200 in 945ms
+ GET /tickets/new 200 in 134ms
+ ✓ Compiled in 481ms (333 modules)
+ GET /dashboard 200 in 184ms
+ GET /tickets/new 200 in 187ms
+ GET /tickets/new 200 in 161ms
+ ○ Compiling /tickets/[id] ...
+ ✓ Compiled /tickets/[id] in 1406ms (831 modules)
+ GET /tickets/9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 2597ms
+ ○ Compiling /notifications ...
+ ✓ Compiled /notifications in 716ms (834 modules)
+ GET /notifications 200 in 908ms
+ GET /tickets/9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 78ms
+ GET /tickets/new 200 in 52ms
+ GET /tickets/new 200 in 35ms
+ GET /tickets/new 200 in 35ms
+ GET /tickets/new 200 in 36ms
+ GET /tickets/new 200 in 35ms
+ GET /dashboard 200 in 49ms
+ ✓ Compiled /tickets in 220ms (496 modules)
+ GET /tickets?status=IN_PROGRESS 200 in 481ms
+ GET /tickets/new 200 in 47ms
+ ✓ Compiled / in 445ms (508 modules)
+ GET /?utm_source=chatgpt.com 200 in 1015ms
+ ✓ Compiled /login in 383ms (513 modules)
+ GET /login 200 in 499ms
+ GET /dashboard 200 in 60ms
+ GET /tickets/new 200 in 59ms
+ GET /tickets 200 in 58ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 117ms
+ GET /login 200 in 68ms
+ GET /login?redirect=%2Ftickets%2Fbdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 68ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 723ms (842 modules)
+ GET /register 200 in 858ms
+ GET /login 200 in 52ms
+ GET /dashboard 200 in 55ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 77ms
+ GET /tickets/new 200 in 65ms
+ ✓ Compiled /notifications in 321ms (493 modules)
+ GET /notifications 200 in 585ms
+ GET /register?utm_source=chatgpt.com 200 in 310ms
+ GET /login 200 in 46ms
+ GET /register 200 in 38ms
+ GET /notifications 200 in 46ms
+ GET /tickets/9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 111ms
+ GET /notifications 200 in 39ms
+ GET /tickets/9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 62ms
+ GET /dashboard 200 in 58ms
+ ✓ Compiled /tickets in 332ms (501 modules)
+ GET /tickets?status=OPEN 200 in 501ms
+ GET /login?redirect=%2Ftickets 200 in 62ms
+ GET /login 200 in 63ms
+ GET /login?redirect=%2Fdashboard 200 in 48ms
+ GET /login?redirect=%2Fdashboard 200 in 37ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 61ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 34ms
+ GET /login?redirect=%2Fnotifications 200 in 55ms
+ GET /login?redirect=%2Fnotifications 200 in 37ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 78ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 46ms
+ GET /login?redirect=%2Fnotifications 200 in 68ms
+ GET /login?redirect=%2Fnotifications 200 in 59ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 84ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 44ms
+ GET /login?redirect=%2Ftickets 200 in 68ms
+ GET /login?redirect=%2Ftickets 200 in 41ms
+ GET /login?redirect=%2Fdashboard 200 in 61ms
+ GET /login?redirect=%2Fdashboard 200 in 61ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 58ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 41ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 49ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 45ms
+ GET /login?redirect=%2Fnotifications 200 in 66ms
+ GET /login?redirect=%2Fnotifications 200 in 42ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 60ms
+ GET /login?redirect=%2Ftickets%2F9a77f2e5-179d-4a4f-8176-4ec94eb9dddb 200 in 48ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 64ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 48ms
+ GET /login?redirect=%2Ftickets 200 in 110ms
+ GET /login?redirect=%2Ftickets 200 in 141ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 95ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 300ms
+ GET /tickets/new?utm_source=chatgpt.com 200 in 135ms
+ ✓ Compiled / in 413ms (501 modules)
+ GET /?utm_source=chatgpt.com 200 in 948ms
+ GET /register 200 in 53ms
+ ○ Compiling /forgot-password ...
+ ✓ Compiled /forgot-password in 1129ms (836 modules)
+ GET /forgot-password 200 in 1927ms
+ GET /register 200 in 1261ms
+ GET /dashboard 200 in 1409ms
+ GET /notifications 200 in 1413ms
+ GET /tickets/new?utm_source=chatgpt.com 200 in 1419ms
+ GET /forgot-password 200 in 735ms
+ GET /register 200 in 580ms
+ ✓ Compiled / in 317ms (506 modules)
+ GET /?utm_source=chatgpt.com 200 in 930ms
+ GET /login 200 in 47ms
+ GET /register 200 in 50ms
+ GET /login 200 in 36ms
+ GET /login 200 in 138ms
+ GET /?utm_source=chatgpt.com 200 in 68ms
+ GET /login 200 in 35ms
+ GET /dashboard 200 in 51ms
+ GET /dashboard 200 in 113ms
+ GET /notifications 200 in 51ms
+ ✓ Compiled /tickets/[id] in 360ms (515 modules)
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 517ms
+ ○ Compiling /tickets ...
+ ✓ Compiled /tickets in 696ms (523 modules)
+ GET /tickets?status=OPEN 200 in 868ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 112ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 312ms
+ GET /tickets/new 200 in 48ms
+ GET /tickets 200 in 44ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 60ms
+ GET /notifications 200 in 56ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 65ms
+ GET /notifications 200 in 42ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 76ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 193ms
+ GET /tickets/new 200 in 58ms
+ GET /notifications 200 in 40ms
+ GET /dashboard 200 in 52ms
+ GET /dashboard 200 in 37ms
+ GET /tickets 200 in 37ms
+ GET /tickets?q=Ephrem+getnet 200 in 36ms
+ GET /tickets/new 200 in 42ms
+ GET /notifications 200 in 55ms
+ GET /login 200 in 47ms
+ GET /tickets/new 200 in 414ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 83ms
+ ✓ Compiled in 1025ms (824 modules)
+ GET /login 200 in 1169ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 1163ms
+ GET /register 200 in 1200ms
+ GET /tickets/new?utm_source=chatgpt.com 200 in 1268ms
+ GET /notifications 200 in 1297ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 1347ms
+ GET /register 200 in 429ms
+ ✓ Compiled in 1303ms (824 modules)
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 671ms
+ GET /login 200 in 675ms
+ GET /register 200 in 682ms
+ GET /tickets/new?utm_source=chatgpt.com 200 in 706ms
+ GET /notifications 200 in 777ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 767ms
+ GET /register 200 in 361ms
+ GET /register 200 in 585ms
+ GET /register?utm_source=chatgpt.com 200 in 162ms
+ GET /login 200 in 86ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 890ms (493 modules)
+ GET /dashboard 200 in 1255ms
+ GET /dashboard 200 in 512ms
+ ✓ Compiled /tickets in 466ms (494 modules)
+ GET /tickets?status=IN_PROGRESS 200 in 937ms
+ GET /tickets/new 200 in 103ms
+ ○ Compiling /notifications ...
+ ✓ Compiled /notifications in 683ms (501 modules)
+ GET /notifications 200 in 946ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 341ms
+ GET /login 200 in 113ms
+ ○ Compiling /forgot-password ...
+ ✓ Compiled /forgot-password in 795ms (501 modules)
+ GET /forgot-password 200 in 1104ms
+ GET /forgot-password 200 in 102ms
+ GET /login 200 in 132ms
+ GET /forgot-password 200 in 76ms
+ GET /login 200 in 87ms
+ GET /login 200 in 519ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 1573ms (482 modules)
+ GET /register 200 in 2296ms
+ GET /register?utm_source=chatgpt.com 200 in 274ms
+ GET /login 200 in 94ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 613ms (485 modules)
+ GET /dashboard 200 in 806ms
+ GET /notifications 200 in 150ms
+ ✓ Compiled /tickets in 495ms (484 modules)
+ GET /tickets 200 in 845ms
+ GET /tickets?priority=URGENT 200 in 64ms
+ GET /tickets 200 in 143ms
+ ✓ Compiled /tickets/[id] in 340ms (493 modules)
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 764ms
+ ○ Compiling /tickets/new ...
+ ✓ Compiled /tickets/new in 557ms (501 modules)
+ GET /tickets/new 200 in 852ms
+ GET /tickets/new 200 in 63ms
+ GET /tickets/new 200 in 62ms
+ GET /notifications 200 in 140ms
+ GET /notifications 200 in 289ms
+ GET /notifications 200 in 237ms
+ GET /tickets?utm_source=chatgpt.com 200 in 289ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 135ms
+ GET /tickets/2f4b7b7c-1da2-4285-afed-62d5fd6e2da0 200 in 331ms
+ GET /notifications 200 in 187ms
+ ○ Compiling /admin/users ...
+ ✓ Compiled /admin/users in 2.5s (846 modules)
+ GET /admin/users?utm_source=chatgpt.com 200 in 3843ms
+ GET /login 200 in 1319ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 1211ms
+ GET /login 200 in 600ms
+ GET /register 200 in 619ms
+ GET /notifications 200 in 1401ms
+ GET /notifications 200 in 1248ms
+ ○ Compiling /access-denied ...
+ ✓ Compiled /access-denied in 1121ms (855 modules)
+ GET /access-denied 200 in 1665ms
+ GET /login 200 in 870ms
+ GET /login 200 in 870ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 868ms
+ GET /register 200 in 881ms
+ GET /access-denied 200 in 653ms
+ GET /notifications 200 in 937ms
+ GET /access-denied 200 in 203ms
+ GET /notifications 200 in 281ms
+ GET /admin/users?utm_source=chatgpt.com 200 in 308ms
+ GET /access-denied 200 in 160ms
+ GET /access-denied 200 in 92ms
+ GET /access-denied 200 in 67ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 821ms (500 modules)
+ GET /dashboard 200 in 1070ms
+ GET /dashboard 200 in 100ms
+ GET /dashboard 200 in 86ms
+'wmic' is not recognized as an internal or external command,
+operable program or batch file.
+
+Could not open layout.tsx in the editor.
+
+When running on Windows, file names are checked against an access list to protect against remote code execution attacks. File names may consist only of alphanumeric characters (all languages), periods, dashes, slashes, and underscores.
+
+ GET /admin/users?utm_source=chatgpt.com 200 in 599ms
+ GET /access-denied 200 in 219ms
+ GET /access-denied 200 in 100ms
+ GET /access-denied 200 in 74ms
+ GET /dashboard 200 in 96ms
+ ○ Compiling /admin/teams ...
+ ✓ Compiled /admin/teams in 1775ms (843 modules)
+ GET /admin/teams?utm_source=chatgpt.com 200 in 3099ms
+ GET /login 200 in 1293ms
+ GET /login 200 in 1288ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 1303ms
+ GET /register 200 in 1296ms
+ GET /access-denied 200 in 1302ms
+ GET /notifications 200 in 1348ms
+ GET /dashboard 200 in 1354ms
+ GET /notifications 200 in 348ms
+ GET /access-denied 200 in 147ms
+ GET /access-denied 200 in 105ms
+ GET /access-denied 200 in 73ms
+ GET /dashboard 200 in 94ms
+ ○ Compiling /admin/sla ...
+ ✓ Compiled /admin/sla in 1550ms (850 modules)
+ GET /admin/sla?utm_source=chatgpt.com 200 in 2758ms
+ GET /register 200 in 1150ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 1156ms
+ GET /login 200 in 1161ms
+ GET /login 200 in 1157ms
+ GET /access-denied 200 in 1194ms
+ GET /dashboard 200 in 1261ms
+ GET /notifications 200 in 1260ms
+ GET /dashboard 200 in 367ms
+ GET /notifications 200 in 369ms
+ GET /access-denied 200 in 149ms
+ GET /access-denied 200 in 126ms
+ GET /access-denied 200 in 112ms
+ GET /access-denied 200 in 162ms
+ GET /admin/sla?utm_source=chatgpt.com 200 in 220ms
+ GET /access-denied 200 in 142ms
+ GET /access-denied 200 in 85ms
+ GET /access-denied 200 in 84ms
+ ○ Compiling /admin/categories ...
+ ✓ Compiled /admin/categories in 1933ms (842 modules)
+ GET /admin/categories?utm_source=chatgpt.com 200 in 3141ms
+ GET /login 200 in 1137ms
+ GET /login?redirect=%2Ftickets%2Fnew 200 in 1139ms
+ GET /access-denied 200 in 1155ms
+ GET /register 200 in 1162ms
+ GET /access-denied 200 in 198ms
+ GET /access-denied 200 in 118ms
+ GET /access-denied 200 in 92ms
+ GET /admin/categories?utm_source=chatgpt.com 200 in 198ms
+ GET /access-denied 200 in 161ms
+ GET /access-denied 200 in 103ms
+ GET /access-denied 200 in 74ms
+ ○ Compiling / ...
+ ✓ Compiled / in 3.9s (494 modules)
+ GET / 200 in 6044ms
+ GET / 200 in 642ms
+ GET / 200 in 399ms
+ GET / 200 in 940ms
+ GET /?utm_source=chatgpt.com 200 in 524ms
+ GET /register 200 in 236ms
+ GET /register 200 in 629ms
+ GET /access-denied 200 in 562ms
+ GET /login?utm_source=chatgpt.com 200 in 545ms
+ GET /dashboard 200 in 985ms
+ ○ Compiling /tickets ...
+ ✓ Compiled /tickets in 2.7s (495 modules)
+ GET /tickets?status=PENDING_REQUESTER 200 in 3789ms
+ GET /tickets?status=OPEN 200 in 182ms
+ GET /tickets?status=PENDING_REQUESTER 200 in 185ms
+ GET /tickets?status=PENDING_REQUESTER 200 in 121ms
+ GET /tickets?status=PENDING_REQUESTER 200 in 89ms
+ GET /tickets?status=PENDING_REQUESTER 200 in 3056ms
+ GET /tickets?status=PENDING_REQUESTER&q=Ephrem+getenet 200 in 166ms
+ GET /tickets 200 in 173ms
+ GET /tickets 200 in 1198ms
+ ○ Compiling /admin/categories ...
+ ✓ Compiled /admin/categories in 1488ms (496 modules)
+ GET /admin/categories?utm_source=chatgpt.com 200 in 2852ms
+ GET /access-denied 200 in 339ms
+ GET /access-denied 200 in 148ms
+ GET /access-denied 200 in 121ms
+ GET /dashboard 200 in 133ms
+ GET /dashboard 200 in 111ms
+ ○ Compiling /tickets/[id] ...
+ ✓ Compiled /tickets/[id] in 1729ms (505 modules)
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 2855ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 268ms
+ GET /tickets/bdd87ddb-b8c9-4f18-8774-f53f77f76279 200 in 151ms
+ GET /?utm_source=chatgpt.com 200 in 630ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 1257ms (510 modules)
+ GET /login 200 in 1580ms
+ GET /login 200 in 143ms
+ GET /login 200 in 163ms
+ GET /dashboard 200 in 319ms
+ ○ Compiling /notifications ...
+ ✓ Compiled /notifications in 2.2s (502 modules)
+ GET /notifications 200 in 2965ms

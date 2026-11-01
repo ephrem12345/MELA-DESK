@@ -1,0 +1,77 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-meladesk}
+      MYSQL_USER: ${MYSQL_USER:-meladesk}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in your local .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in your local .env}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+    networks: [mela-private]
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8025:8025"
+    networks: [mela-private]
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DATABASE_URL: mysql://${MYSQL_USER:-meladesk}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE:-meladesk}?connection_limit=10
+      FRONTEND_ORIGINS: ${FRONTEND_ORIGINS:-http://localhost:3000}
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in your local .env}
+      SESSION_COOKIE_NAME: mela_session
+      CSRF_COOKIE_NAME: mela_csrf
+      SESSION_TTL_HOURS: 12
+      COOKIE_SAME_SITE: lax
+      COOKIE_SECURE: "false"
+      TRUST_PROXY: "false"
+      UPLOAD_DIR: /workspace/backend/var/private-uploads
+      MAX_UPLOAD_BYTES: 10485760
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+      SMTP_SECURE: "false"
+      SMTP_FROM: "MELA DESK <no-reply@localhost>"
+      PUBLIC_APP_URL: ${PUBLIC_APP_URL:-http://localhost:3000}
+      DEV_SEED_PASSWORD: ${DEV_SEED_PASSWORD:?Set DEV_SEED_PASSWORD in your local .env}
+    ports:
+      - "127.0.0.1:4000:4000"
+    volumes:
+      - private_uploads:/workspace/backend/var/private-uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks: [mela-private]
+
+volumes:
+  mysql_data:
+  private_uploads:
+
+networks:
+  mela-private:
+    driver: bridge

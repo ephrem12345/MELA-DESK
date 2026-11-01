@@ -1,0 +1,490 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../backend/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  REQUESTER
+  AGENT
+  TEAM_LEAD
+  ADMIN
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  PENDING_REQUESTER
+  PENDING_THIRD_PARTY
+  RESOLVED
+  CLOSED
+}
+
+enum PriorityCode {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum CommentVisibility {
+  PUBLIC
+  INTERNAL
+}
+
+enum OutboxStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id                   String       @id @default(uuid()) @db.Char(36)
+  name                 String       @db.VarChar(160)
+  email                String       @unique @db.VarChar(320)
+  passwordHash         String       @map("password_hash") @db.VarChar(255)
+  role                 Role         @default(REQUESTER)
+  departmentId         String?      @map("department_id") @db.Char(36)
+  active               Boolean      @default(true)
+  emailVerifiedAt      DateTime?    @map("email_verified_at") @db.DateTime(3)
+  failedLoginAttempts  Int          @default(0) @map("failed_login_attempts")
+  lockedUntil          DateTime?    @map("locked_until") @db.DateTime(3)
+  lastLoginAt          DateTime?    @map("last_login_at") @db.DateTime(3)
+  preferredLanguage   String       @default("en") @map("preferred_language") @db.VarChar(5)
+  timeZone             String       @default("UTC") @map("time_zone") @db.VarChar(80)
+  createdAt            DateTime     @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt            DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt            DateTime?    @map("deleted_at") @db.DateTime(3)
+
+  department            Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  teamMemberships       TeamMember[]
+  requestedTickets      Ticket[]    @relation("TicketRequester")
+  assignedTickets       Ticket[]    @relation("TicketAssignee")
+  assignmentsMade       TicketAssignment[] @relation("AssignmentActor")
+  assignmentsReceived   TicketAssignment[] @relation("AssignmentUser")
+  comments              TicketComment[]
+  uploadedAttachments   Attachment[] @relation("AttachmentUploader")
+  notifications         Notification[]
+  sessions              Session[]
+  passwordResetTokens   PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  statusChanges         TicketStatusHistory[]
+  auditEvents           AuditLog[] @relation("AuditActor")
+  notificationPreference NotificationPreference?
+
+  @@index([role, active])
+  @@index([departmentId, active])
+  @@map("users")
+}
+
+model Department {
+  id          String   @id @default(uuid()) @db.Char(36)
+  name        String   @unique @db.VarChar(120)
+  code        String   @unique @db.VarChar(32)
+  description String?  @db.VarChar(500)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  users   User[]
+  teams   Team[]
+  tickets Ticket[]
+
+  @@map("departments")
+}
+
+model Team {
+  id           String   @id @default(uuid()) @db.Char(36)
+  name         String   @unique @db.VarChar(120)
+  description  String?  @db.VarChar(500)
+  departmentId String?  @map("department_id") @db.Char(36)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  department Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  members    TeamMember[]
+  tickets    Ticket[]
+  assignments TicketAssignment[]
+
+  @@index([departmentId, active])
+  @@map("teams")
+}
+
+model TeamMember {
+  teamId     String   @map("team_id") @db.Char(36)
+  userId     String   @map("user_id") @db.Char(36)
+  membershipRole String @default("MEMBER") @map("membership_role") @db.VarChar(32)
+  joinedAt   DateTime @default(now()) @map("joined_at") @db.DateTime(3)
+  active     Boolean  @default(true)
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([teamId, userId])
+  @@index([userId, active])
+  @@map("team_members")
+}
+
+model Category {
+  id           String   @id @default(uuid()) @db.Char(36)
+  name         String   @unique @db.VarChar(120)
+  labelEn      String   @map("label_en") @db.VarChar(160)
+  labelAm      String   @map("label_am") @db.VarChar(160)
+  description  String?  @db.VarChar(500)
+  parentId     String?  @map("parent_id") @db.Char(36)
+  active       Boolean  @default(true)
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Category[] @relation("CategoryTree")
+  tickets  Ticket[]
+
+  @@index([active, displayOrder])
+  @@map("ticket_categories")
+}
+
+model Priority {
+  id                    String       @id @default(uuid()) @db.Char(36)
+  code                  PriorityCode @unique
+  name                  String       @unique @db.VarChar(40)
+  level                 Int          @unique
+  firstResponseMinutes  Int          @map("first_response_minutes")
+  resolutionMinutes     Int          @map("resolution_minutes")
+  active                Boolean      @default(true)
+  createdAt             DateTime     @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt             DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
+
+  tickets  Ticket[]
+  slaPolicy SlaPolicy?
+
+  @@map("ticket_priorities")
+}
+
+model TicketSequence {
+  id        Int      @id @default(1)
+  lastValue BigInt   @default(999) @map("last_value")
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  @@map("ticket_sequences")
+}
+
+model Ticket {
+  id                    String       @id @default(uuid()) @db.Char(36)
+  ticketNumber          String       @unique @map("ticket_number") @db.VarChar(24)
+  subject               String       @db.VarChar(240)
+  description           String       @db.Text
+  requesterId           String       @map("requester_id") @db.Char(36)
+  assignedAgentId       String?      @map("assigned_agent_id") @db.Char(36)
+  assignedTeamId        String?      @map("assigned_team_id") @db.Char(36)
+  departmentId          String?      @map("department_id") @db.Char(36)
+  categoryId            String       @map("category_id") @db.Char(36)
+  priorityId            String       @map("priority_id") @db.Char(36)
+  status                TicketStatus @default(OPEN)
+  channel               String       @default("WEB") @db.VarChar(24)
+  service               String?      @db.VarChar(120)
+  impact                String?      @db.VarChar(24)
+  urgency               String?      @db.VarChar(24)
+  dueAt                 DateTime?    @map("due_at") @db.DateTime(3)
+  firstResponseAt       DateTime?    @map("first_response_at") @db.DateTime(3)
+  resolvedAt            DateTime?    @map("resolved_at") @db.DateTime(3)
+  closedAt              DateTime?    @map("closed_at") @db.DateTime(3)
+  resolutionSummary     String?      @map("resolution_summary") @db.Text
+  resolutionCode        String?      @map("resolution_code") @db.VarChar(80)
+  rootCause             String?      @map("root_cause") @db.Text
+  correctiveAction      String?      @map("corrective_action") @db.Text
+  preventiveAction      String?      @map("preventive_action") @db.Text
+  publicExplanation     String?      @map("public_explanation") @db.Text
+  version               Int          @default(1)
+  createdAt             DateTime     @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt             DateTime     @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt             DateTime?    @map("deleted_at") @db.DateTime(3)
+
+  requester      User        @relation("TicketRequester", fields: [requesterId], references: [id], onDelete: Restrict)
+  assignedAgent  User?       @relation("TicketAssignee", fields: [assignedAgentId], references: [id], onDelete: SetNull)
+  assignedTeam   Team?       @relation(fields: [assignedTeamId], references: [id], onDelete: SetNull)
+  department     Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  category       Category    @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  priority       Priority    @relation(fields: [priorityId], references: [id], onDelete: Restrict)
+  statusHistory  TicketStatusHistory[]
+  assignments    TicketAssignment[]
+  comments       TicketComment[]
+  attachments    Attachment[]
+  notifications  Notification[]
+  slaTracking    SlaTracking?
+
+  @@index([status, updatedAt])
+  @@index([priorityId, status, updatedAt])
+  @@index([requesterId, createdAt])
+  @@index([assignedAgentId, status, updatedAt])
+  @@index([assignedTeamId, status, updatedAt])
+  @@index([departmentId, status, createdAt])
+  @@index([categoryId, createdAt])
+  @@index([createdAt])
+  @@map("tickets")
+}
+
+model TicketStatusHistory {
+  id             String       @id @default(uuid()) @db.Char(36)
+  ticketId       String       @map("ticket_id") @db.Char(36)
+  previousStatus TicketStatus? @map("previous_status")
+  newStatus      TicketStatus @map("new_status")
+  changedById    String?      @map("changed_by") @db.Char(36)
+  reason         String?      @db.VarChar(500)
+  createdAt      DateTime     @default(now()) @map("created_at") @db.DateTime(3)
+
+  ticket    Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  changedBy User?  @relation(fields: [changedById], references: [id], onDelete: SetNull)
+
+  @@index([ticketId, createdAt])
+  @@map("ticket_status_history")
+}
+
+model TicketAssignment {
+  id                 String   @id @default(uuid()) @db.Char(36)
+  ticketId           String   @map("ticket_id") @db.Char(36)
+  assignedToUserId   String?  @map("assigned_to_user_id") @db.Char(36)
+  assignedToTeamId   String?  @map("assigned_to_team_id") @db.Char(36)
+  assignedById       String?  @map("assigned_by") @db.Char(36)
+  reason             String?  @db.VarChar(500)
+  assignedAt         DateTime @default(now()) @map("assigned_at") @db.DateTime(3)
+  unassignedAt       DateTime? @map("unassigned_at") @db.DateTime(3)
+
+  ticket      Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  assignedTo  User?  @relation("AssignmentUser", fields: [assignedToUserId], references: [id], onDelete: SetNull)
+  assignedTeam Team?  @relation(fields: [assignedToTeamId], references: [id], onDelete: SetNull)
+  assignedBy  User?  @relation("AssignmentActor", fields: [assignedById], references: [id], onDelete: SetNull)
+
+  @@index([ticketId, assignedAt])
+  @@index([assignedToUserId, unassignedAt])
+  @@index([assignedToTeamId, unassignedAt])
+  @@map("ticket_assignments")
+}
+
+model TicketComment {
+  id         String            @id @default(uuid()) @db.Char(36)
+  ticketId   String            @map("ticket_id") @db.Char(36)
+  authorId   String            @map("author_id") @db.Char(36)
+  body       String            @db.Text
+  visibility CommentVisibility @default(PUBLIC)
+  createdAt  DateTime          @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt  DateTime          @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt  DateTime?         @map("deleted_at") @db.DateTime(3)
+
+  ticket      Ticket       @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  author      User         @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  attachments Attachment[]
+
+  @@index([ticketId, visibility, createdAt])
+  @@map("ticket_comments")
+}
+
+model Attachment {
+  id           String   @id @default(uuid()) @db.Char(36)
+  ticketId     String?  @map("ticket_id") @db.Char(36)
+  commentId    String?  @map("comment_id") @db.Char(36)
+  uploadedById String   @map("uploaded_by") @db.Char(36)
+  originalName String   @map("original_filename") @db.VarChar(255)
+  storageKey   String   @unique @map("storage_key") @db.VarChar(255)
+  mimeType     String   @map("mime_type") @db.VarChar(120)
+  sizeBytes    BigInt   @map("file_size_bytes")
+  checksum     String?  @db.Char(64)
+  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  deletedAt    DateTime? @map("deleted_at") @db.DateTime(3)
+  expiresAt    DateTime? @map("expires_at") @db.DateTime(3)
+
+  ticket     Ticket?       @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  comment    TicketComment? @relation(fields: [commentId], references: [id], onDelete: Restrict)
+  uploadedBy User          @relation("AttachmentUploader", fields: [uploadedById], references: [id], onDelete: Restrict)
+
+  @@index([ticketId, createdAt])
+  @@index([uploadedById, expiresAt])
+  @@map("ticket_attachments")
+}
+
+model Notification {
+  id             String   @id @default(uuid()) @db.Char(36)
+  recipientId    String   @map("recipient_id") @db.Char(36)
+  ticketId       String?  @map("ticket_id") @db.Char(36)
+  type           String   @db.VarChar(48)
+  title          String   @db.VarChar(200)
+  message        String   @db.VarChar(1000)
+  locale         String   @default("en") @db.VarChar(5)
+  readAt         DateTime? @map("read_at") @db.DateTime(3)
+  createdAt      DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  recipient User    @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  ticket    Ticket? @relation(fields: [ticketId], references: [id], onDelete: SetNull)
+
+  @@index([recipientId, readAt, createdAt])
+  @@index([ticketId, createdAt])
+  @@map("notifications")
+}
+
+model SlaPolicy {
+  id                    String   @id @default(uuid()) @db.Char(36)
+  priorityId            String   @unique @map("priority_id") @db.Char(36)
+  warningMinutes        Int      @default(60) @map("warning_minutes")
+  timeZone              String   @default("UTC") @map("time_zone") @db.VarChar(80)
+  businessHoursEnabled  Boolean  @default(false) @map("business_hours_enabled")
+  businessHours         Json?    @map("business_hours")
+  holidays              Json?
+  pauseWhenPending      Boolean  @default(false) @map("pause_when_pending")
+  escalationRules       Json?    @map("escalation_rules")
+  active                Boolean  @default(true)
+  createdAt             DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt             DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  priority Priority @relation(fields: [priorityId], references: [id], onDelete: Restrict)
+
+  @@map("sla_policies")
+}
+
+model SlaTracking {
+  id                       String   @id @default(uuid()) @db.Char(36)
+  ticketId                 String   @unique @map("ticket_id") @db.Char(36)
+  firstResponseDueAt       DateTime? @map("first_response_due_at") @db.DateTime(3)
+  resolutionDueAt          DateTime? @map("resolution_due_at") @db.DateTime(3)
+  firstResponseBreachedAt  DateTime? @map("first_response_breached_at") @db.DateTime(3)
+  resolutionBreachedAt     DateTime? @map("resolution_breached_at") @db.DateTime(3)
+  firstResponseWarningSentAt DateTime? @map("first_response_warning_sent_at") @db.DateTime(3)
+  resolutionWarningSentAt  DateTime? @map("resolution_warning_sent_at") @db.DateTime(3)
+  pausedAt                 DateTime? @map("paused_at") @db.DateTime(3)
+  accumulatedPauseMinutes  Int       @default(0) @map("accumulated_pause_minutes")
+  createdAt                DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt                DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@index([resolutionDueAt, resolutionBreachedAt])
+  @@map("sla_tracking")
+}
+
+model Session {
+  id         String   @id @default(uuid()) @db.Char(36)
+  userId     String   @map("user_id") @db.Char(36)
+  tokenHash  String   @unique @map("token_hash") @db.Char(64)
+  expiresAt  DateTime @map("expires_at") @db.DateTime(3)
+  revokedAt  DateTime? @map("revoked_at") @db.DateTime(3)
+  lastUsedAt DateTime @default(now()) @map("last_used_at") @db.DateTime(3)
+  createdAt  DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  ipAddress  String?  @map("ip_address") @db.VarChar(64)
+  userAgent  String?  @map("user_agent") @db.VarChar(500)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, revokedAt, expiresAt])
+  @@map("sessions")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid()) @db.Char(36)
+  userId    String   @map("user_id") @db.Char(36)
+  tokenHash String   @unique @map("token_hash") @db.Char(64)
+  expiresAt DateTime @map("expires_at") @db.DateTime(3)
+  consumedAt DateTime? @map("consumed_at") @db.DateTime(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt, consumedAt])
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(uuid()) @db.Char(36)
+  userId    String   @map("user_id") @db.Char(36)
+  tokenHash String   @unique @map("token_hash") @db.Char(64)
+  expiresAt DateTime @map("expires_at") @db.DateTime(3)
+  consumedAt DateTime? @map("consumed_at") @db.DateTime(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_tokens")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid()) @db.Char(36)
+  actorId      String?  @map("actor_id") @db.Char(36)
+  action       String   @db.VarChar(100)
+  resourceType String   @map("resource_type") @db.VarChar(80)
+  resourceId   String?  @map("resource_id") @db.VarChar(80)
+  requestId    String   @map("request_id") @db.VarChar(64)
+  ipAddress    String?  @map("ip_address") @db.VarChar(64)
+  userAgent    String?  @map("user_agent") @db.VarChar(500)
+  beforeData   Json?    @map("before_data")
+  afterData    Json?    @map("after_data")
+  outcome      String   @default("SUCCESS") @db.VarChar(24)
+  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId, createdAt])
+  @@index([resourceType, resourceId, createdAt])
+  @@index([action, createdAt])
+  @@index([requestId])
+  @@map("audit_logs")
+}
+
+model OutboxEvent {
+  id            String      @id @default(uuid()) @db.Char(36)
+  eventKey      String      @unique @map("event_key") @db.VarChar(180)
+  topic         String      @db.VarChar(120)
+  payload       Json
+  status        OutboxStatus @default(PENDING)
+  attempts      Int         @default(0)
+  maxAttempts   Int         @default(8) @map("max_attempts")
+  claimedAt     DateTime?   @map("claimed_at") @db.DateTime(3)
+  nextAttemptAt DateTime    @default(now()) @map("next_attempt_at") @db.DateTime(3)
+  processedAt   DateTime?   @map("processed_at") @db.DateTime(3)
+  lastError     String?     @map("last_error") @db.VarChar(1000)
+  createdAt     DateTime    @default(now()) @map("created_at") @db.DateTime(3)
+
+  @@index([status, nextAttemptAt])
+  @@map("outbox_events")
+}
+
+model IdempotencyRecord {
+  id          String   @id @default(uuid()) @db.Char(36)
+  actorId     String   @map("actor_id") @db.Char(36)
+  key         String   @db.VarChar(128)
+  requestHash String   @map("request_hash") @db.Char(64)
+  response    Json?
+  expiresAt   DateTime @map("expires_at") @db.DateTime(3)
+  createdAt   DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  @@unique([actorId, key])
+  @@index([expiresAt])
+  @@map("idempotency_records")
+}
+
+model NotificationPreference {
+  id                 String   @id @default(uuid()) @db.Char(36)
+  userId             String   @unique @map("user_id") @db.Char(36)
+  emailEnabled       Boolean  @default(true) @map("email_enabled")
+  assignmentEnabled  Boolean  @default(true) @map("assignment_enabled")
+  replyEnabled       Boolean  @default(true) @map("reply_enabled")
+  statusEnabled      Boolean  @default(true) @map("status_enabled")
+  createdAt          DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt          DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notification_preferences")
+}
+
+model SystemSetting {
+  key       String   @id @db.VarChar(120)
+  value     Json
+  updatedBy String?  @map("updated_by") @db.Char(36)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  @@map("system_settings")
+}
